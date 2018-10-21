@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset ="utf-8">
+	<title>동주</title>
+	<style>
+		body{background: black;}
+		#yoon{height: 100%; position: absolute; right: 0px;}
+
+		.book{height: 200px; width: 100px; position: absolute; animation: drop 1s forwards; opacity: 0; transition : all 1s; margin-top:0; }
+		.bookimg{height: 120px; margin-top: 55px;}
+		.book:hover {margin:-50px;}
+				.book:hover .balloon {opacity: 1;}
+
+		@keyframes drop{
+			from {margin-top:0; opacity: 0;}
+			to{margin-top:50px; opacity: 1;}
+		}
+		.balloon{ width: 60px; height: 50px; position: absolute; color: white; opacity: 0; margin-bottom: 10px;}
+		.balloon img {width: 60px;}
+			#b_text {color: white; font-size: 1em; text-align: center; margin-top: -45px;}
+
+		#bluebook {height: 200px; width: 100px; position: absolute; margin-top: 500px; margin-left: 1000px; animation: dropp 1s forwards; animation-delay: 2.5s; opacity: 0; }
+		#bluebookimg {height:120px; margin-top: 55px;}
+		#bluebook:hover{margin: 950px;}
+		@keyframes dropp{
+			from {margin-top:450px; opacity: 0;}
+			to{margin-top:500px; opacity: 1;}
+		}
+
+		.word{ width: 20px; color: white; position: absolute; font-weight: bold; animation: rain 4s linear infinite; }
+		.word:hover{font-size: 2em;}
+		@keyframes rain{
+			from{margin-top: 0px;}
+			to{margin-top: 500px;}
+		}
+
+	</style>
+</head>
+<body>
+	<img src="yoon2.png" id="yoon">
+
+	<div id = "bookCon"></div>
+	
+	<div id = "book">
+		<div class="balloon">
+			<img src="balloon.png">
+			<div id="b_text">"none"</div>
+		</div>
+		<img src="book.png" class="bookimg">
+	</div>
+
+	<div id="bluebook">
+		<div class="balloon">
+			<img src="balloon.png">
+			<div id="b_text">"서시"</div>
+		</div>
+		<img src="book2.png" id="bluebookimg">
+	</div>
+	
+	<audio id="night">
+		<source src="nightsong.mp3" type="audio/mp3">
+	</audio>
+
+	<audio id="poem">
+		<source src="poem.mp3" type="audio/mp3">
+	</audio>
+
+	<div id="word"></div>
+	<div id="wordCon"></div>
+	<div id="poemp"></div>
+
+	<script type="text/javascript">
+		var toggle = "off";
+		bluebook.onmouseover = function(){
+			bluebook.style.cursor = "pointer";
+		}
+
+		bluebook.onclick = function(){
+			if (toggle == "off") {
+				
+				toggle = "on"
+				poem.play();
+
+				//떨어지는 글자
+				var text = "죽는 날까지 하늘을 우러러  한 점 부끄럼이 없기를  잎새에 이는 바람에도  나는 괴로워했다  별을 노래하는 마음으로  모든 죽어가는 것을 사랑해야지  그리고 나에게 주어진 길을  걸어가야겠다  오늘 밤에도 별이 바람에 스치운다  별  하늘  바람  잎새  별  하늘  바람  잎새  죽는 날까지 하늘을 우러러  한 점 부끄럼이 없기를  잎새에 이는 바람에도  나는 괴로워했다  별을 노래하는 마음으로  모든 죽어가는 것을 사랑해야지  그리고 나에게 주어진 길을  걸어가야겠다  오늘 밤에도 별이 바람에 스치운다"
+
+				var k = text.split("  ");
+		 
+		 		for(var i=0; i<k.length; i++){
+					var e = document.getElementById("poemp");
+					var f = e.cloneNode(true);
+					f.className = "word";
+					f.innerHTML = k[i];
+					f.style.left = Math.random() * 1500 + i + "px";
+					f.style.top = Math.random() * 30 + i + "px";
+					f.style.animationDelay = i * 0.2 +"s";
+					wordCon.appendChild(f);
+				}
+
+
+			}else{
+				toggle = "off";
+				poem.pause();
+				
+				//떨어지는 글자 없애는거
+				wordCon.innerHTML = "";
+			}
+		}
+
+		//책장
+		var total = 0;
+		for(var i=0; i<25; i++){
+			var c = document.getElementById("book");
+			var d = c.cloneNode(true);
+			d.className = "book";
+			d.id = "book" + i;
+			d.style.left = 40 * i + "px";
+			d.style.top = 18 * i + "px";
+			d.style.animationDelay = i*0.1 + "s";
+
+			bookCon.appendChild(d);
+		}
+
+		//책9 노래나오기
+		var toggle = "off";
+		book9.onmouseover = function(){
+			book9.style.cursor = "pointer";
+
+		}
+
+		book9.onclick = function(){
+			if (toggle == "off") {
+				book9.style.animationPlayState = "running";
+				toggle = "on"
+				night.play();
+
+
+
+			}else{
+				toggle = "off";
+				night.pause();
+				
+				}
+		}
+	//Con들만 보이게 원본을 지워줌
+		book.style.display = "none";
+	</script>
+
+
+</body>
+</html>
